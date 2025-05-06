@@ -126,6 +126,10 @@ class TransferirSaldoView(APIView):
             print(f"Saldo insuficiente: Saldo actual {origen.saldo}, monto requerido {monto}")
             return Response({'error': 'Saldo insuficiente'}, status=status.HTTP_400_BAD_REQUEST)
 
+        if origen.nro_cuenta == destino.nro_cuenta:
+            print("No se puede transferir a la misma cuenta")
+            return Response({'error': 'No se puede transferir a la misma cuenta'}, status=status.HTTP_400_BAD_REQUEST)
+
         try:
             print("Realizando transferencia...")
             origen.saldo -= Decimal(str(monto))
