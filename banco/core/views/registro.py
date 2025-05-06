@@ -6,6 +6,8 @@ from rest_framework import status
 from core.models import Cuenta
 
 class RegistroView(APIView):
+    permission_classes = []
+
     def post(self, request):
         data = request.data
         print("Datos recibidos:", data)
@@ -37,13 +39,6 @@ class RegistroView(APIView):
             )
             print("Usuario creado:", user.username)
 
-            print("Creando cuenta...")
-            Cuenta.objects.create(
-                usuario=user,
-                saldo=0,
-                nro_cuenta=str(random.randint(10000000, 99999999))
-            )
-            print("Cuenta creada")
 
             return Response(status=status.HTTP_201_CREATED)
 
