@@ -62,3 +62,22 @@ class BeneficiarioDeleteView(generics.DestroyAPIView):
         if beneficiario.propietario != request.user:
             return Response({"error": "No tienes permiso para eliminar este beneficiario"}, status=status.HTTP_403_FORBIDDEN)
         return super().delete(request, *args, **kwargs)
+
+
+class BeneficiarioUpdateView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request, id):
+        try:
+            alias = request.data.get('alias')
+            if not alias:
+                return Response({"error": "El alias es requerido"}, status=status.HTTP_400_BAD_REQUEST)
+
+            beneficiario = Beneficiario.objects.get(id=id, propietario=request.user)
+            beneficiario.alias = alias
+            beneficiario.save()
+            return Response({"mensaje": "Alias actualizado correctamente"})
+        except Beneficiario.DoesNotExist:
+            return Response({"error": "Beneficiario no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

@@ -12,7 +12,8 @@ from .views import (
     CrearCuentaView,
     MovimientosCuentaView,
     UsuarioActualView,
-    BorrarCuentaView
+    BorrarCuentaView,
+    BeneficiarioUpdateView,
 )
 
 
@@ -41,6 +42,7 @@ urlpatterns = [
     # Beneficiarios
     path('beneficiarios/', BeneficiarioListCreateView.as_view()),
     path('beneficiarios/<int:id>/', BeneficiarioDeleteView.as_view(), name='eliminar-beneficiario'),
-    
+    path('beneficiarios/<int:id>/editar/', BeneficiarioUpdateView.as_view(), name='editar-beneficiario'),
+
     
 ]
