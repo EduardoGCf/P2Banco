@@ -6,7 +6,7 @@ from rest_framework import status
 from ..models import Cuenta, Movimiento
 from decimal import Decimal
 
-##CUENTA CASI CRUD NO PUSE EDITAR
+
 class CrearCuentaView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -51,7 +51,6 @@ class BorrarCuentaView(APIView):
             return Response({'error': 'Cuenta no encontrada'}, status=status.HTTP_404_NOT_FOUND)
 
 
-##INGRESO EGRESO Y TRANSFERENCIA DE SALDO
 
 class IngresarSaldoView(APIView):
     permission_classes = [IsAuthenticated]
